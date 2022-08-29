@@ -1,0 +1,11 @@
+// 原来不需要写后端
+model Store {
+  id          Int     @id @default(autoincrement())
+  image       String
+  title       String
+  description String
+  price       Int
+  stars       Int
+  is_open     Boolean
+  type        String
+}
