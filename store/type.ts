@@ -13,13 +13,15 @@ export type PriceType = '$' | '$$' | '$$$' | '$$$$' | ''
 export interface StoreListInterface {
   isOpen: boolean
   price: PriceType
+  categories: string
   isDataLoading: boolean
   total: number
   count: number
   offset: number
   hasMore: boolean
   storeList: StoreItemType[]
-  initStoreData: () => void
+  updateCategories: (categories?: string) => void
+  initStoreData: (categories?: string) => void
   loadMoreData: () => void
   updateIsOpen: (isOpen: boolean) => void
   updatePrice: (pirce: PriceType) => void

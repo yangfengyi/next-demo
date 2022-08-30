@@ -4,6 +4,7 @@ import { PriceType, StoreListInterface } from './type'
 
 const initStore = {
   isOpen: false,
+  categories: '',
   price: '' as PriceType,
   isDataLoading: false,
   hasMore: false,
@@ -24,14 +25,15 @@ function formatStoreList(data:any = {}) {
   })
 }
 
-export const useStoreList = create<StoreListInterface>((set) => ({
+export const useStoreList = create<StoreListInterface>((set, get) => ({
   ...initStore,
-  initStoreData: async () => {
+  initStoreData: async (categories?: string) => {
     set(() => ({ isDataLoading: true }))
     axios('/api/search', {
       params: {
         count: initStore.count,
-        offset: initStore.offset
+        offset: initStore.offset,
+        categories: categories || ''
       }
     })
       .then((res) => {
@@ -49,10 +51,12 @@ export const useStoreList = create<StoreListInterface>((set) => ({
   },
   loadMoreData: async() => {
     set(() => ({ isDataLoading: true }))
+    const categories = get().categories
     axios('/api/search', {
       params: {
         count: initStore.count,
-        offset: initStore.offset + 20
+        offset: initStore.offset + 20,
+        categories: categories
       }
     })
       .then((res) => {
@@ -73,4 +77,5 @@ export const useStoreList = create<StoreListInterface>((set) => ({
   },
   updateIsOpen: (isOpen: boolean) =>set({ isOpen: isOpen }),
   updatePrice: (price: PriceType) => set({ price: price }),
+  updateCategories: (categories?: string) => set({ categories })
 }))

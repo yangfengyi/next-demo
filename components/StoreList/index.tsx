@@ -8,6 +8,7 @@ export default function StoreList() {
   const {
     price,
     isOpen,
+    categories,
     storeList,
     initStoreData,
     hasMore,
@@ -16,6 +17,7 @@ export default function StoreList() {
   } = useStoreList(state => ({
     price: state.price,
     isOpen: state.isOpen,
+    categories: state.categories,
     storeList: state.storeList,
     initStoreData: state.initStoreData,
     hasMore: state.hasMore,
@@ -24,13 +26,12 @@ export default function StoreList() {
   }), shallow)
 
   useEffect(() => {
-    initStoreData()
-  }, [])
+    initStoreData(categories)
+  }, [ categories ])
 
   const getFilterData = () => {
     const openData = isOpen ? storeList.filter(ele => ele.isOpen) : storeList
     const filterData = price !== '' ? openData.filter(ele => (ele.price === price) || !ele.price) : openData
-
     return filterData
   }
 

@@ -3,7 +3,7 @@ import Rating from "react-rating";
 import Link from "next/link";
 
 export default function StoreItem({ data }: { data: StoreItemType}) {
-  const { image, title, price, stars } = data
+  const { image, title, price, stars, id } = data
 
   return (
     <li className="flex col-span-12 px-4 mt-8 lg:flex-col md:col-span-6 lg:col-span-3 auto-row-max">
@@ -19,7 +19,7 @@ export default function StoreItem({ data }: { data: StoreItemType}) {
           />
           <p>{price}</p>
         </div>
-        <Link href='/store/detail'>
+        <Link href={`/store/detail?id=${id}`}>
           <a
             href=""
             className="mt-3 text-xl text-gray-600 underline lg:text-center lg:bg-blue-700 lg:w-full lg:py-2 lg:text-white"

@@ -11,15 +11,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const { limit = 20, offset = 0, categories = '' } = req.query
-  console.log(categories)
-  const data = await axios.get('https://api.yelp.com/v3/businesses/search', {
-    params: {
-      location: 'Las Vegas',
-      limit,
-      offset,
-      categories: categories,
-    },
+  const { categories = '' } = req.query
+  const data = await axios.get('https://api.yelp.com/v3/categories', {
     headers: {
       'Authorization': `Bearer ${apiKey}`,
       'accept': 'application/json',
@@ -27,7 +20,6 @@ export default async function handler(
       'Access-Control-Allow-Origin':'*',
     }
   })
-  console.log(data.data)
 
   res.status(200).json({
     data: data.data
